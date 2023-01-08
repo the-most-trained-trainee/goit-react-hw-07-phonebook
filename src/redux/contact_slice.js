@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 
-
-
-
-
 const phoneBookSlice = createSlice({
   name: 'contacts',
   initialState: {
@@ -17,16 +13,13 @@ const phoneBookSlice = createSlice({
   reducers: {
 
     addContact(state, action) {
-
-      
-
       state.contacts.push({
         id: nanoid(),
         name: action.payload.name,
         number: action.payload.number,
       })
-
     },
+
     removeContact(state, action) {
       const removeId = state.contacts.findIndex((contact) => contact.id === action.payload);
       state.contacts.splice(removeId, 1);

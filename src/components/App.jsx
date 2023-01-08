@@ -1,10 +1,13 @@
-import { nanoid } from 'nanoid';
 import Container from './Container/StyledContainer';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import { addContact } from 'redux/contact_slice';
 import { useDispatch, useSelector } from 'react-redux';
+
+// https://youtu.be/eKCD9djJQKc?t=1508
+// https://learn.javascript.ru/fetch
+// https://developer.mozilla.org/ru/docs/Web/API/Fetch_API/Using_Fetch
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,7 +17,6 @@ const App = () => {
   const contactSubmit = data => {
     dispatch(
       addContact({
-        id: nanoid(),
         name: data.name,
         number: data.number,
       })
