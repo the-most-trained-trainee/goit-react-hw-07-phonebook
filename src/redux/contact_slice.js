@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { nanoid } from "nanoid";
-
-import { fetchContacts, addContact } from "./operations";
+import { fetchContacts, addContact, removeContact } from "./operations";
 
 const phoneBookSlice = createSlice({
   name: 'contacts',
@@ -13,28 +11,19 @@ const phoneBookSlice = createSlice({
     isLoading: false,
     error: null
   },
-
   extraReducers: {
-
-    // fetch contacts 
-
     [fetchContacts.pending](state) {
       state.isLoading = true;
     },
-
     [fetchContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       state.contacts = action.payload;
     },
-
     [fetchContacts.rejected](state, action) {
       state.isLoading = false;
       state.error = action.payload;
     },
-
-    // add contact 
-
     [addContact.pending](state) {
       state.isLoading = true;
     },
@@ -46,27 +35,22 @@ const phoneBookSlice = createSlice({
     [addContact.rejected](state, action) {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    [removeContact.pending](state) {
+      state.isLoading = true;
+    },
+    [removeContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.contacts.findIndex(contact => contact.id === action.meta.arg);
+      state.contacts.splice(index, 1);
+    },
+    [removeContact.rejected](state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
     }
-
   }
-
 });
-
-export const { removeContact } = phoneBookSlice.actions;
 
 export default phoneBookSlice.reducer;
 
-
-
-// addContact(state, action) {
-//   state.contacts.push({
-//     id: nanoid(),
-//     name: action.payload.name,
-//     number: action.payload.number,
-//   })
-// },
-
-// removeContact(state, action) {
-//   const removeId = state.contacts.findIndex((contact) => contact.id === action.payload);
-//   state.contacts.splice(removeId, 1);
-// },

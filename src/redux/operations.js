@@ -18,14 +18,14 @@ const fetchContacts = createAsyncThunk(
 const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, thunkAPI) => {
-
     const toAdd = { 'name': contact.name, 'phone': contact.number }
-
-    // { "name": contact.name, "phone": contact.number }
     try {
       const addingContact = await fetch(baseURL + `/contacts`, {
-        method: 'POST',
-        body: JSON.stringify(toAdd)
+        method: 'post',
+        body: JSON.stringify(toAdd),
+        headers: {
+          'content-type': 'application/json'
+        }
       });
       const addingContactJSON = addingContact.json();
       return addingContactJSON;
@@ -33,11 +33,20 @@ const addContact = createAsyncThunk(
       return thunkAPI.rejectWithValue(e.message);
     }
   }
-
-
 )
 
+const removeContact = createAsyncThunk(
+  'contacts/removeContact',
+  async (contact, thunkAPI) => {
+    try {
+      const response = await fetch(baseURL + `/contacts/` + contact, {
+        method: 'delete',
+      });
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+)
 
-
-
-export { fetchContacts, addContact };
+export { fetchContacts, addContact, removeContact };

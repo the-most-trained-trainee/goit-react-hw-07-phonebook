@@ -1,10 +1,11 @@
 import ContactEntryStyled from './StyledContactEntry';
-import { removeContact } from 'redux/contact_slice';
 import { useDispatch } from 'react-redux';
+import { removeContact } from 'redux/operations';
 
 const ContactEntry = ({ name, number, id }) => {
-  
   const dispatch = useDispatch();
+
+
 
   const onDelete = () => {
     dispatch(removeContact(id));
