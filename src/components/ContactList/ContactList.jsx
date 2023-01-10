@@ -1,6 +1,5 @@
 import ContactEntry from '../ContactEntry/ContactEntry';
 import EntriesListStyled from './StyledEntriesList';
-
 import { useSelector } from 'react-redux';
 
 const ContactList = () => {

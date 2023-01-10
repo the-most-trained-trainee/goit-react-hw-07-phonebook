@@ -1,10 +1,14 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import StyledForm from './StyledContactForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/operations';
 
-const ContactForm = ({ onSubmit, contacts }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.contacts);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -23,7 +27,12 @@ const ContactForm = ({ onSubmit, contacts }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (!contacts.some(entry => entry.name === name)) {
-      onSubmit({ name: name, number: number });
+      dispatch(
+        addContact({
+          name: name,
+          number: number,
+        })
+      );
       setName('');
       setNumber('');
     } else {
@@ -58,11 +67,6 @@ const ContactForm = ({ onSubmit, contacts }) => {
       </StyledForm>
     </form>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  contacts: PropTypes.array.isRequired,
 };
 
 export default ContactForm;

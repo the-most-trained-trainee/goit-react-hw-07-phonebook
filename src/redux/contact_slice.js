@@ -4,10 +4,7 @@ import { fetchContacts, addContact, removeContact } from "./operations";
 const phoneBookSlice = createSlice({
   name: 'contacts',
   initialState: {
-    contacts: [
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-      { id: 'id-3', name: 'Masha Browko', number: '222-33-26' },
-    ],
+    contacts: [],
     isLoading: false,
     error: null
   },
